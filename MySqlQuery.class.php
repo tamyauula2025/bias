@@ -2,6 +2,24 @@
 class MySqlQuery
 {
 
+	/**
+	 * Осуществить пакетную вставку
+	 * @param array $entities Сущности
+	 * @param string $tableName Наименование таблицы
+	 * @param string $dbName Наименование БД (м. б. пустой строкой)
+	 * @param bool $onDuplicateKeyUpdate Флаг обновления записи при дубликате ключа
+	 * @param array $updatedColNames Наименования колонок значения которых будут обновлены
+	 * @param bool $returnLastInsertId Вернуть ли ИД крайней вставленной записи?
+	*/
+	public static function batchInsert($entities, $tableName, $dbName = '', $onDuplicateKeyUpdate = false, $updatedColNames = [], $returnLastInsertId = false)
+	{
+		// INSERT `reorgs` (`unp_posl`, `tip`, `dat`, `unp_do`, `kod_xml_otch`) VALUES
+		// 	('000000001', '1', '1970-01-01', '000000011', 'AISKB0000000001_______'),
+		// 	('000000002', '2', '1970-01-02', '000000012', 'AISKB0000000002_______'),
+		// 	('000000001', '1', '1970-01-01', '000000011', 'AISKB0000000003_______')
+		// ON DUPLICATE KEY UPDATE `kod_xml_otch` = VALUES(`kod_xml_otch`)
+	}
+	
 	public static function findById(int $id, string $tableName, ?string $dbName = null, int $fetchMode = MYSQLI_ASSOC, string $idColName = 'id'): ?array
 	{
 		$var = (isset($dbName)) ? "`$dbName`." : "";
